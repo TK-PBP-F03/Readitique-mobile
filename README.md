@@ -11,7 +11,7 @@
 Readitique adalah sebuah aplikasi perpustakaan digital yang memungkinkan pengguna untuk mengakses koleksi buku digital yang kaya. Kini readitique kembali dalam bentuk aplikasi mobile untuk kemudahan dan kenyamana para konsumen. Hanya saja terdapat sedikit perbedaan dengan versi website dimana versi ini menawarkan fitur mengunggah rating dan ulasan melalui fitur Review, serta membaca ulasan dari pengguna lain. Profil pengguna memiliki peran Reader dengan hak akses yang sesuai. Fitur Add Buku memungkinkan pengguna untuk mengusulkan dan memberikan suara pada buku yang ingin mereka lihat ditambahkan ke dalam koleksi. Dengan aplikasi ini, pengguna dapat menjalani pengalaman membaca yang terorganisir dan berinteraktif, serta berpartisipasi dalam komunitas literatur yang dinamis. 
 
 ## Daftar modul yang akan diimplementasikan
-1. Autentikasi pengguna (thaarskuy)
+1. Autentikasi pengguna (`thaariq`)
 2. Homepage (Melvara)
 3. Review (read rating/a few reviews only/add) (Dhafin)
 4. Profile (Reader) (Kevin)
@@ -22,8 +22,8 @@ Readitique adalah sebuah aplikasi perpustakaan digital yang memungkinkan penggun
 - Tidak Login : Pengguna yang belum login atau bahkan belum memiliki akun hanya dapat mengakses beberapa fitur pada website ini seperti, hanya bisa membaca buku tanpa menyimpan ke favorite atau menandai bahwa buku itu belum selesai. Pengguna hanya bisa melihat buku yang sudah dibaca pengguna yang sudah login di reading list mereka dan tidak bisa membuat atau memodifikasi reading list tersebut. Pengguna juga tidak bisa melihat review full dan memberikan review pada suatu buku. Pengguna juga hanya bisa melihat usulan buku baru yang ingin ditambahkan tanpa melakukan voting pada usulan tersebut. Jika pengguna belum memiliki akun, pengguna dapat membuat akun baru dengan membuat username dan password baru pada website tersebut.
 
 ## Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
-Langkah-langkah Umum untuk Integrasi:
-Definisikan Endpoint API: Tentukan endpoint untuk setiap modul di web service Anda.
-Akses Data: Gunakan HTTP request dari aplikasi Flutter untuk mengakses data melalui API.
-Autentikasi dan Otorisasi: Pastikan autentikasi dan otorisasi pengguna bekerja dengan baik antara kedua platform.
-Uji Coba: Lakukan pengujian menyeluruh untuk memastikan integrasi berjalan dengan lancar.
+1. Langkah-langkah Umum untuk Integrasi:
+2. Definisikan Endpoint API: Tentukan endpoint untuk setiap modul di web service Anda.
+3. Akses Data: Gunakan HTTP request dari aplikasi Flutter untuk mengakses data melalui API.
+4. Autentikasi dan Otorisasi: Pastikan autentikasi dan otorisasi pengguna bekerja dengan baik antara kedua platform.
+5. Uji Coba: Lakukan pengujian menyeluruh untuk memastikan integrasi berjalan dengan lancar.
