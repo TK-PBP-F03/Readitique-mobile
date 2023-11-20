@@ -12,10 +12,10 @@ Readitique adalah sebuah aplikasi perpustakaan digital yang memungkinkan penggun
 
 ## Daftar modul yang akan diimplementasikan
 1. Autentikasi pengguna (`thaariq`)
-2. Homepage (Melvara)
-3. Review (read rating/a few reviews only/add) (Dhafin)
-4. Profile (Reader) (Kevin)
-5. Add buku (guest: lihat usulan terbaru, non-admin: usulkan dan voting buku) (Reika)
+2. Homepage (`Melvara`)
+3. Review (read rating/a few reviews only/add) (`Dhafin`)
+4. Profile (Reader) (`Kevin`)
+5. Add buku (guest: lihat usulan terbaru, non-admin: usulkan dan voting buku) (`Reika`)
 
 ## Peran Pengguna
 - Login (Reader): Pengguna dapat menyimpan buku yang akan dibaca atau memasukkan ke dalam list favorit buku. Pengguna dapat membuka reading list pengguna lain dan melihat buku yang sudah dibaca, sedang dibaca, dan ingin dibaca pengguna tersebut. Mereka juga bisa membuat dan memodifikasi reading list yang mereka buat sendiri. Selain itu, pengguna dapat melihat semua review suatu buku dan bisa memberikan rating dan review pada buku tersebut. Pengguna juga bisa memberikan usulan terbaru mengenai buku yang akan ditambahkan dan melakukan voting buku yang akan diusulkan tersebut.
