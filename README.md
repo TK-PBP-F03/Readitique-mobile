@@ -27,3 +27,5 @@ Readitique adalah sebuah aplikasi perpustakaan digital yang memungkinkan penggun
 3. Akses Data: Gunakan HTTP request dari aplikasi Flutter untuk mengakses data melalui API.
 4. Autentikasi dan Otorisasi: Pastikan autentikasi dan otorisasi pengguna bekerja dengan baik antara kedua platform.
 5. Uji Coba: Lakukan pengujian menyeluruh untuk memastikan integrasi berjalan dengan lancar.
+
+## (link berita acaranya yeah)[https://univindonesia-my.sharepoint.com/:x:/g/personal/athira_reika_office_ui_ac_id/EbeVMS1k_yxErfP724IGCdUB_IerbtTnq2i1688Gxr9UAQ?e=Bjh2ZR] <hr>
