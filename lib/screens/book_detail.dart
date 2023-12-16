@@ -1,6 +1,7 @@
 import 'package:readitique_mobile/screens/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:readitique_mobile/models/book.dart';
+import 'package:readitique_mobile/screens/reviews.dart';
 
 class BookDetail extends StatefulWidget {
   final Fields books;
@@ -203,37 +204,48 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Container(
-                          width: size.width / 2 - 44,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: kPrimaryColor.withOpacity(0.4),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(0, 0),
+                        Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SpringBook(
+                                            bookFields: widget.books,
+                                          )));
+                            },
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            child: Ink(
+                              width: size.width / 2 - 44,
+                              decoration: BoxDecoration(
+                                color: kPrimaryColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kPrimaryColor.withOpacity(0.4),
+                                    spreadRadius: 2,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Reviews",
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Reviews",
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: Colors.white,
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
