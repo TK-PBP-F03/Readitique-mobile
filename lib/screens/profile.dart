@@ -7,6 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:readitique_mobile/models/userprofile.dart';
 import 'package:http/http.dart' as http;
 
+
+void main() {
+  runApp(ProfileApp(username: "iniadminke2"));
+}
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
 
