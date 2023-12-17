@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readitique_mobile/models/userprofile.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
@@ -60,26 +64,49 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-void main() {
-  runApp(MyApp());
+class ProfileApp extends StatefulWidget {
+  final String username;
+
+  ProfileApp({required this.username});
+
+  @override
+  _ProfileAppState createState() => _ProfileAppState();
 }
 
-class MyApp extends StatelessWidget {
+class _ProfileAppState extends State<ProfileApp> {
+  Future<UserProfile> fetchUserProfile() async {
+    var url =
+        Uri.parse('http://127.0.0.1:8000/profile/${widget.username}/json/');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    if (data.isNotEmpty) {
+      return UserProfile.fromJson(data[0]);
+    } else {
+      throw Exception('User profile not found');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ProfileScreen(
-        userProfile: UserProfile(
-          model: Model.RPROFILE_USERPROFILE,
-          pk: 1,
-          fields: Fields(
-            user: 123, // Replace with actual user ID
-            handphone: 1234567890,
-            email: 'user@example.com', // Replace with actual email
-            favoriteBooks: [1, 2, 3], // Replace with actual book IDs
-          ),
-        ),
+      home: FutureBuilder<UserProfile>(
+        future: fetchUserProfile(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return ProfileScreen(userProfile: snapshot.data!);
+          }
+        },
       ),
     );
   }
 }
+
