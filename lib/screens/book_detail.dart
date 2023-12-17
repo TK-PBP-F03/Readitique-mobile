@@ -41,7 +41,7 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    UserProfile userProfile = ;
+   // UserProfile userProfile = ;
 
     return Scaffold(
       body: Stack(
@@ -316,13 +316,13 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
       ),
       child: InkWell(
         onTap: () {
-          String username = userProfile.fields.user.toString();
+         // String username = userProfile.fields.user.toString();
           // Navigate to ProfileApp
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ProfileApp(
-                username: username,// Pass the appropriate username
+                username: "adminke2",// Pass the appropriate username
               ),
             ),
           );
