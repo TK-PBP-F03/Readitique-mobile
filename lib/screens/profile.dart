@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readitique_mobile/models/userprofile.dart';
+import 'package:readitique_mobile/screens/wprofile.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -44,6 +45,22 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Navigate to Profile Form Screen
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WProfilePage(
+                username: userProfile.fields.user.toString(),
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.edit),
+        label: const Text("Edit Profile"),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
