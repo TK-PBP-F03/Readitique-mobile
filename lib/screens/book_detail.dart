@@ -2,6 +2,8 @@ import 'package:readitique_mobile/screens/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:readitique_mobile/models/book.dart';
 import 'package:readitique_mobile/screens/reviews.dart';
+import 'package:readitique_mobile/screens/profile.dart';
+import 'package:readitique_mobile/models/userprofile.dart';
 
 class BookDetail extends StatefulWidget {
   final Fields books;
@@ -39,6 +41,7 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    UserProfile userProfile = ;
 
     return Scaffold(
       body: Stack(
@@ -296,32 +299,49 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
             ),
           ),
           Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: 32, bottom: (size.height * 0.5) - (75 / 2)),
-              child: Card(
-                elevation: 4,
-                margin: EdgeInsets.all(0),
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(15),
-                  ),
-                ),
-                child: Container(
-                  width: 75,
-                  height: 75,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(widget.books.imageLink),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+  alignment: Alignment.bottomLeft,
+  child: Padding(
+    padding: EdgeInsets.only(
+      left: 32,
+      bottom: (size.height * 0.5) - (75 / 2),
+    ),
+    child: Card(
+      elevation: 4,
+      margin: EdgeInsets.all(0),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+      ),
+      child: InkWell(
+        onTap: () {
+          String username = userProfile.fields.user.toString();
+          // Navigate to ProfileApp
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileApp(
+                username: username,// Pass the appropriate username
               ),
             ),
+          );
+        },
+        child: Container(
+          width: 75,
+          height: 75,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(widget.books.imageLink),
+              fit: BoxFit.cover,
+            ),
           ),
+        ),
+      ),
+    ),
+  ),
+),
+
         ],
       ),
     );

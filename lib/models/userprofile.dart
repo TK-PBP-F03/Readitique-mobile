@@ -12,7 +12,7 @@ String userProfileToJson(List<UserProfile> data) => json.encode(List<dynamic>.fr
 class UserProfile {
     Model model;
     int pk;
-    Fields fields;
+    Fieldsm fields;
 
     UserProfile({
         required this.model,
@@ -23,7 +23,7 @@ class UserProfile {
     factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
         model: modelValues.map[json["model"]]!,
         pk: json["pk"],
-        fields: Fields.fromJson(json["fields"]),
+        fields: Fieldsm.fromJson(json["fields"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -33,20 +33,20 @@ class UserProfile {
     };
 }
 
-class Fields {
+class Fieldsm {
     int user;
     int? handphone;
     String email;
     List<int> favoriteBooks;
 
-    Fields({
+    Fieldsm({
         required this.user,
         required this.handphone,
         required this.email,
         required this.favoriteBooks,
     });
 
-    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+    factory Fieldsm.fromJson(Map<String, dynamic> json) => Fieldsm(
         user: json["user"],
         handphone: json["handphone"],
         email: json["email"],
