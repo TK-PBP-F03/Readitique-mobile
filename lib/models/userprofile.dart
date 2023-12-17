@@ -1,36 +1,82 @@
+
+// To parse this JSON data, do
+//
+//     final userProfile = userProfileFromJson(jsonString);
+
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
-class UserProfileService {
-  final String baseUrl;
+List<UserProfile> userProfileFromJson(String str) => List<UserProfile>.from(json.decode(str).map((x) => UserProfile.fromJson(x)));
 
-  UserProfileService({required this.baseUrl});
-
-  Future<UserProfile> getUserProfile(int userId) async {
-    final response = await http.get(Uri.parse('$baseUrl/api/user_profiles/$userId/'));
-
-    if (response.statusCode == 200) {
-      return UserProfile.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load user profile');
-    }
-  }
-}
+String userProfileToJson(List<UserProfile> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserProfile {
-  final int id;
-  final String handphone;
-  final String email;
-  // Add other fields as needed
+    Model model;
+    int pk;
+    Fields fields;
 
-  UserProfile({required this.id, required this.handphone, required this.email});
+    UserProfile({
+        required this.model,
+        required this.pk,
+        required this.fields,
+    });
 
-  factory UserProfile.fromJson(Map<String, dynamic> json) {
-    return UserProfile(
-      id: json['id'],
-      handphone: json['handphone'],
-      email: json['email'],
-      // Add other fields as needed
+    factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+        model: modelValues.map[json["model"]]!,
+        pk: json["pk"],
+        fields: Fields.fromJson(json["fields"]),
     );
-  }
+
+    Map<String, dynamic> toJson() => {
+        "model": modelValues.reverse[model],
+        "pk": pk,
+        "fields": fields.toJson(),
+    };
+}
+
+class Fields {
+    int user;
+    int? handphone;
+    String email;
+    List<int> favoriteBooks;
+
+    Fields({
+        required this.user,
+        required this.handphone,
+        required this.email,
+        required this.favoriteBooks,
+    });
+
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+        user: json["user"],
+        handphone: json["handphone"],
+        email: json["email"],
+        favoriteBooks: List<int>.from(json["favorite_books"].map((x) => x)),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "user": user,
+        "handphone": handphone,
+        "email": email,
+        "favorite_books": List<dynamic>.from(favoriteBooks.map((x) => x)),
+    };
+}
+
+enum Model {
+    RPROFILE_USERPROFILE
+}
+
+final modelValues = EnumValues({
+    "rprofile.userprofile": Model.RPROFILE_USERPROFILE
+});
+
+class EnumValues<T> {
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
+
+    EnumValues(this.map);
+
+    Map<T, String> get reverse {
+        reverseMap = map.map((k, v) => MapEntry(v, k));
+        return reverseMap;
+    }
 }
