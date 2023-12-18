@@ -4,11 +4,10 @@ import 'package:provider/provider.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 class WProfilePage extends StatefulWidget {
-  final String username;
+  final String user;
 
-  WProfilePage({required this.username});
+  WProfilePage({required this.user});
 
   @override
   State<WProfilePage> createState() => _WProfilePageState();
@@ -16,7 +15,7 @@ class WProfilePage extends StatefulWidget {
 
 class _WProfilePageState extends State<WProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  String _username = "";
+  String _email = "";
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +23,13 @@ class _WProfilePageState extends State<WProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.username),
+        title: Text(widget.user),
       ),
       body: Padding(
         padding: const EdgeInsets.only(
             top: 5.0, bottom: 30.0, right: 30.0, left: 30.0),
         child: Column(
           children: [
-          
-
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
               child: Container(
@@ -52,8 +49,8 @@ class _WProfilePageState extends State<WProfilePage> {
                         minLines: 7,
                         maxLines: 7,
                         decoration: InputDecoration(
-                          hintText: "Username",
-                          labelText: "Update Your Username",
+                          hintText: "User",
+                          labelText: "Update Your email",
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
@@ -61,12 +58,12 @@ class _WProfilePageState extends State<WProfilePage> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            _username = value!;
+                            _email = value!;
                           });
                         },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return "Username cannot be empty!";
+                            return "User cannot be empty!";
                           }
                           return null;
                         },
@@ -83,15 +80,18 @@ class _WProfilePageState extends State<WProfilePage> {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             final response = await request.postJson(
-              "http://127.0.0.1:8000/profile/${widget.username}/create-flutter/",
-              jsonEncode(<String, String>{'username': _username}),
+              "http://127.0.0.1:8000/profile/create-flutter/${widget.user}/",
+              jsonEncode(<String, String>{'email': _email}),
             );
             if (response['status'] == 'success') {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Username has been saved!'),
+                content: Text('Email has been saved!'),
               ));
               _formKey.currentState!.reset();
+              print("berhasil");
               Navigator.pop(context);
+              
+             
             } else {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("An error occurred, please try again."),
@@ -106,3 +106,4 @@ class _WProfilePageState extends State<WProfilePage> {
     );
   }
 }
+

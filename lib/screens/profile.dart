@@ -49,11 +49,11 @@ class ProfileScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Navigate to Profile Form Screen
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => WProfilePage(
-                username: userProfile.user.toString(),
+                user: userProfile.user.toString(),
               ),
             ),
           );
@@ -70,8 +70,8 @@ class ProfileScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Button Tapped!'),
-          content: Text('You tapped the button!'),
+          title: Text('Profile Button Tapped!'),
+          content: Text('You tapped the profile button!'),
           actions: [
             TextButton(
               onPressed: () {
@@ -133,5 +133,6 @@ class _ProfileAppState extends State<ProfileApp> {
     );
   }
 }
+
 
 
