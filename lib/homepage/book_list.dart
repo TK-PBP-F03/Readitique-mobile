@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:readitique_mobile/screens/constant.dart';
 import 'package:readitique_mobile/screens/book_detail.dart';
 import 'package:readitique_mobile/screens/profile.dart';
+import 'package:readitique_mobile/addbuku/addbuku.dart';
 
 class NavigationItem {
   IconData iconData;
@@ -21,7 +22,6 @@ List<NavigationItem> getNavigationItemList() {
   ];
 }
 
-
 class Filter {
   String name;
   String value;
@@ -36,9 +36,8 @@ List<Filter> getFilterList() {
 }
 
 class Bookstore extends StatefulWidget {
-    
-    final String username;
-    Bookstore({required this.username});
+  final String username;
+  Bookstore({required this.username});
   @override
   _BookstoreState createState() => _BookstoreState(username: username);
 }
@@ -46,7 +45,7 @@ class Bookstore extends StatefulWidget {
 class _BookstoreState extends State<Bookstore> {
   final String username;
   _BookstoreState({required this.username});
-  
+
   late List<Filter> filters;
   late Filter selectedFilter;
 
@@ -327,34 +326,37 @@ class _BookstoreState extends State<Bookstore> {
   }
 
   Widget buildNavigationItem(NavigationItem item) {
-  return GestureDetector(
-    onTap: () {
-      setState(() {
-        selectedItem = item;
-      });
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedItem = item;
+        });
 
-      // Check if the selected item is the one corresponding to the profile page
-      if (item.title == "profile") {
-        // Navigate to the ProfileApp
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfileApp(user: username),
+        // Check if the selected item is the one corresponding to the profile page
+        if (item.title == "book") {
+          // Navigate to AddBukuPage if book icon tapped
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddBukuPage()));
+        } else if (item.title == "profile") {
+          // Navigate to the ProfileApp
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileApp(user: username),
+            ),
+          );
+        }
+      },
+      child: Container(
+        width: 50,
+        child: Center(
+          child: Icon(
+            item.iconData,
+            color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
+            size: 28,
           ),
-        );
-      }
-    },
-    child: Container(
-      width: 50,
-      child: Center(
-        child: Icon(
-          item.iconData,
-          color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
-          size: 28,
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
