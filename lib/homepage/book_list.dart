@@ -36,11 +36,17 @@ List<Filter> getFilterList() {
 }
 
 class Bookstore extends StatefulWidget {
+    
+    final String username;
+    Bookstore({required this.username});
   @override
-  _BookstoreState createState() => _BookstoreState();
+  _BookstoreState createState() => _BookstoreState(username: username);
 }
 
 class _BookstoreState extends State<Bookstore> {
+  final String username;
+  _BookstoreState({required this.username});
+  
   late List<Filter> filters;
   late Filter selectedFilter;
 
@@ -333,7 +339,7 @@ class _BookstoreState extends State<Bookstore> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfileApp(user: "1"),
+            builder: (context) => ProfileApp(user: username),
           ),
         );
       }

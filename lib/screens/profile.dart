@@ -17,7 +17,14 @@ void main() {
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
 
-  ProfileScreen({required this.userProfile});
+  ProfileScreen({required this.userProfile}) {
+    // Initialize the variables in the constructor
+    usernameNew = "kevin123";
+    userNew = userProfile.username!;
+  }
+
+  late String usernameNew;
+  late String userNew;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Username: ${userProfile.user}'),
+            Text('Username: ${userProfile.username}'),
             SizedBox(height: 8),
             Text('Handphone: ${userProfile.handphone ?? "Not provided"}'),
             SizedBox(height: 8),
@@ -52,13 +59,12 @@ class ProfileScreen extends StatelessWidget {
                 // Navigate to the BookStore page without popping
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Bookstore()),
+                  MaterialPageRoute(
+                      builder: (context) => Bookstore(username: userNew)),
                 );
               },
               child: Text('Go to BookStore'),
             ),
-
-           
           ],
         ),
       ),
@@ -69,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => WProfilePage(
-                user: userProfile.user.toString(),
+                user: userProfile.username.toString(),
               ),
             ),
           );

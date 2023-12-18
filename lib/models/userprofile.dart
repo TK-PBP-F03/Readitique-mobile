@@ -86,14 +86,14 @@ class UserProfile {
   int? id; // Make sure to use nullable types for properties that can be null
   int? handphone;
   String? email;
-  int? user;
+  String? username;
   List<int>? favoriteBooks;
 
   UserProfile({
     this.id,
     this.handphone,
     this.email,
-    this.user,
+    this.username,
     this.favoriteBooks,
   });
 
@@ -101,7 +101,7 @@ class UserProfile {
         id: json['id'],
         handphone: json['handphone'],
         email: json['email'],
-        user: json['user'],
+        username: json['username'],
         favoriteBooks: List<int>.from(json['favorite_books']),
       );
 
@@ -109,7 +109,7 @@ class UserProfile {
         'id': id,
         'handphone': handphone,
         'email': email,
-        'user': user,
+        'username': username,
         'favorite_books': favoriteBooks,
       };
 }
