@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 
 
 void main() {
-  runApp(ProfileApp(username: "iniadminke2"));
+  runApp(ProfileApp(user: "iniadminke2"));
 }
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
@@ -28,14 +28,15 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Username: ${userProfile.fields.user}'),
+            Text('Username: ${userProfile.user}'),
             SizedBox(height: 8),
-            Text('Handphone: ${userProfile.fields.handphone ?? "Not provided"}'),
+            Text('Handphone: ${userProfile.handphone ?? "Not provided"}'),
             SizedBox(height: 8),
-            Text('Email: ${userProfile.fields.email}'),
+            Text('Email: ${userProfile.email}'),
             SizedBox(height: 8),
-            Text('Favorite Books: ${userProfile.fields.favoriteBooks.join(", ")}'),
-            SizedBox(height: 16),
+           //Text('Favorite Books: ${userProfile.favoriteBooks != null ? userProfile.favoriteBooks.join(", ") : "N/A"}'),
+           // SizedBox(height: 16),
+
             ElevatedButton(
               onPressed: () {
                 _showMessage(context);
@@ -52,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => WProfilePage(
-                username: userProfile.fields.user.toString(),
+                username: userProfile.user.toString(),
               ),
             ),
           );
@@ -85,10 +86,11 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class ProfileApp extends StatefulWidget {
-  final String username;
 
-  ProfileApp({required this.username});
+class ProfileApp extends StatefulWidget {
+  final String user;
+
+  ProfileApp({required this.user});
 
   @override
   _ProfileAppState createState() => _ProfileAppState();
@@ -97,19 +99,19 @@ class ProfileApp extends StatefulWidget {
 class _ProfileAppState extends State<ProfileApp> {
   Future<UserProfile> fetchUserProfile() async {
     var url =
-        Uri.parse('http://127.0.0.1:8000/profile/${widget.username}/json/');
+        Uri.parse('http://127.0.0.1:8000/profile/json/${widget.user}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
 
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
+     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-    if (data.isNotEmpty) {
-      return UserProfile.fromJson(data[0]);
-    } else {
-      throw Exception('User profile not found');
-    }
+  if (data != null) {
+    return UserProfile.fromJson(data);
+  } else {
+    throw Exception('User profile not found');
+  }
   }
 
   @override
@@ -123,11 +125,13 @@ class _ProfileAppState extends State<ProfileApp> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            return ProfileScreen(userProfile: snapshot.data!);
+            UserProfile userProfile = snapshot.data!;
+            return ProfileScreen(userProfile: userProfile);
           }
         },
       ),
     );
   }
 }
+
 

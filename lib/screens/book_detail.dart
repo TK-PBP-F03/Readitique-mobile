@@ -322,7 +322,7 @@ class _BookDetailState extends State<BookDetail> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
               builder: (context) => ProfileApp(
-                username: "adminke2",// Pass the appropriate username
+                user: "1",// Pass the appropriate username
               ),
             ),
           );

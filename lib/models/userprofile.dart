@@ -2,7 +2,7 @@
 // To parse this JSON data, do
 //
 //     final userProfile = userProfileFromJson(jsonString);
-
+/*
 import 'dart:convert';
 
 List<UserProfile> userProfileFromJson(String str) => List<UserProfile>.from(json.decode(str).map((x) => UserProfile.fromJson(x)));
@@ -12,7 +12,7 @@ String userProfileToJson(List<UserProfile> data) => json.encode(List<dynamic>.fr
 class UserProfile {
     Model model;
     int pk;
-    Fieldsm fields;
+    Fields fields;
 
     UserProfile({
         required this.model,
@@ -23,7 +23,7 @@ class UserProfile {
     factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
         model: modelValues.map[json["model"]]!,
         pk: json["pk"],
-        fields: Fieldsm.fromJson(json["fields"]),
+        fields: Fields.fromJson(json["fields"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -33,20 +33,20 @@ class UserProfile {
     };
 }
 
-class Fieldsm {
+class Fields {
     int user;
     int? handphone;
     String email;
     List<int> favoriteBooks;
 
-    Fieldsm({
+    Fields({
         required this.user,
         required this.handphone,
         required this.email,
         required this.favoriteBooks,
     });
 
-    factory Fieldsm.fromJson(Map<String, dynamic> json) => Fieldsm(
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         user: json["user"],
         handphone: json["handphone"],
         email: json["email"],
@@ -79,4 +79,37 @@ class EnumValues<T> {
         reverseMap = map.map((k, v) => MapEntry(v, k));
         return reverseMap;
     }
+}
+*/
+
+class UserProfile {
+  int? id; // Make sure to use nullable types for properties that can be null
+  int? handphone;
+  String? email;
+  int? user;
+  List<int>? favoriteBooks;
+
+  UserProfile({
+    this.id,
+    this.handphone,
+    this.email,
+    this.user,
+    this.favoriteBooks,
+  });
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+        id: json['id'],
+        handphone: json['handphone'],
+        email: json['email'],
+        user: json['user'],
+        favoriteBooks: List<int>.from(json['favorite_books']),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'handphone': handphone,
+        'email': email,
+        'user': user,
+        'favorite_books': favoriteBooks,
+      };
 }
