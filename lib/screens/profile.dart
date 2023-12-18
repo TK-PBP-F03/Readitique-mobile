@@ -45,6 +45,8 @@ class ProfileScreen extends StatelessWidget {
               },
               child: Text('Show Message'),
             ),
+
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Navigate to the BookStore page without popping
@@ -55,6 +57,8 @@ class ProfileScreen extends StatelessWidget {
               },
               child: Text('Go to BookStore'),
             ),
+
+           
           ],
         ),
       ),
