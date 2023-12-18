@@ -4,20 +4,23 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:readitique_mobile/screens/constant.dart';
 import 'package:readitique_mobile/screens/book_detail.dart';
+import 'package:readitique_mobile/screens/profile.dart';
 
 class NavigationItem {
   IconData iconData;
-  NavigationItem(this.iconData);
+  String title; // Add a title property for identification
+  NavigationItem(this.iconData, this.title);
 }
 
 List<NavigationItem> getNavigationItemList() {
   return <NavigationItem>[
-    NavigationItem(Icons.home),
-    NavigationItem(Icons.book),
-    NavigationItem(Icons.local_library),
-    NavigationItem(Icons.person),
+    NavigationItem(Icons.home, "home"),
+    NavigationItem(Icons.book, "book"),
+    NavigationItem(Icons.local_library, "library"),
+    NavigationItem(Icons.person, "profile"),
   ];
 }
+
 
 class Filter {
   String name;
@@ -318,22 +321,34 @@ class _BookstoreState extends State<Bookstore> {
   }
 
   Widget buildNavigationItem(NavigationItem item) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedItem = item;
-        });
-      },
-      child: Container(
-        width: 50,
-        child: Center(
-          child: Icon(
-            item.iconData,
-            color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
-            size: 28,
+  return GestureDetector(
+    onTap: () {
+      setState(() {
+        selectedItem = item;
+      });
+
+      // Check if the selected item is the one corresponding to the profile page
+      if (item.title == "profile") {
+        // Navigate to the ProfileApp
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileApp(user: "1"),
           ),
+        );
+      }
+    },
+    child: Container(
+      width: 50,
+      child: Center(
+        child: Icon(
+          item.iconData,
+          color: selectedItem == item ? kPrimaryColor : Colors.grey[400],
+          size: 28,
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }

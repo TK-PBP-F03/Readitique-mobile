@@ -8,10 +8,12 @@ import 'package:readitique_mobile/models/userprofile.dart';
 import 'package:readitique_mobile/screens/wprofile.dart';
 import 'package:http/http.dart' as http;
 
+import "package:readitique_mobile/homepage/book_list.dart";
 
 void main() {
   runApp(ProfileApp(user: "iniadminke2"));
 }
+
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
 
@@ -34,14 +36,24 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(height: 8),
             Text('Email: ${userProfile.email}'),
             SizedBox(height: 8),
-           //Text('Favorite Books: ${userProfile.favoriteBooks != null ? userProfile.favoriteBooks.join(", ") : "N/A"}'),
-           // SizedBox(height: 16),
+            //Text('Favorite Books: ${userProfile.favoriteBooks != null ? userProfile.favoriteBooks.join(", ") : "N/A"}'),
+            // SizedBox(height: 16),
 
             ElevatedButton(
               onPressed: () {
                 _showMessage(context);
               },
               child: Text('Show Message'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to the BookStore page without popping
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Bookstore()),
+                );
+              },
+              child: Text('Go to BookStore'),
             ),
           ],
         ),
@@ -86,7 +98,6 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-
 class ProfileApp extends StatefulWidget {
   final String user;
 
@@ -98,20 +109,19 @@ class ProfileApp extends StatefulWidget {
 
 class _ProfileAppState extends State<ProfileApp> {
   Future<UserProfile> fetchUserProfile() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/profile/json/${widget.user}/');
+    var url = Uri.parse('http://127.0.0.1:8000/profile/json/${widget.user}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
 
-     var data = jsonDecode(utf8.decode(response.bodyBytes));
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
-  if (data != null) {
-    return UserProfile.fromJson(data);
-  } else {
-    throw Exception('User profile not found');
-  }
+    if (data != null) {
+      return UserProfile.fromJson(data);
+    } else {
+      throw Exception('User profile not found');
+    }
   }
 
   @override
@@ -133,6 +143,3 @@ class _ProfileAppState extends State<ProfileApp> {
     );
   }
 }
-
-
-
