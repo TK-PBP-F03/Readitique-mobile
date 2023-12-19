@@ -16,7 +16,6 @@ class LoginApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: const LoginPage(),
@@ -71,13 +70,16 @@ class _LoginPageState extends State<LoginPage> {
               fontWeight: FontWeight.bold,
               color: Colors.black,
             )), // Add text color
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.blue,
+        backgroundColor: Colors.white, // Set the background color
+        iconTheme:
+            const IconThemeData(color: Colors.black), // Set the icon color
         centerTitle: true,
+        elevation: 0, // Remove the appbar shadow
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         height: MediaQuery.of(context).size.height * 0.75,
+        color: Colors.white, // Set the background color
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -104,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Username',
                   border: InputBorder.none,
                 ),
+                style: const TextStyle(color: Colors.black), // Set text color
               ),
             ),
             const SizedBox(height: 12.0),
@@ -115,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   border: InputBorder.none,
                 ),
                 obscureText: true,
+                style: const TextStyle(color: Colors.black), // Set text color
               ),
             ),
             const SizedBox(height: 24.0),
@@ -138,7 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                     String uname = response['username'];
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => Bookstore(username: uname)),
+                      MaterialPageRoute(
+                          builder: (context) => Bookstore(username: uname)),
                     );
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()

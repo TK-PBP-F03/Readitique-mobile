@@ -1,91 +1,61 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:readitique_mobile/main.dart';
 import 'package:readitique_mobile/models/userprofile.dart';
 import 'package:readitique_mobile/screens/wprofile.dart';
-import 'package:http/http.dart' as http;
-
 import "package:readitique_mobile/homepage/book_list.dart";
 
-void main() {
-  runApp(ProfileApp(user: "iniadminke2"));
+class LogoutHandler {
+  static Future<void> logout(BuildContext context) async {
+    var url = Uri.parse('http://127.0.0.1:8000/auth/logout/');
+    var response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      // Successfully logged out, navigate to the login screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MyApp(),
+        ),
+      );
+    } else {
+      // Handle logout failure
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Logout Failed'),
+            content: Text('Unable to logout. Please try again.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
 class ProfileScreen extends StatelessWidget {
   final UserProfile userProfile;
 
   ProfileScreen({required this.userProfile}) {
-    // Initialize the variables in the constructor
     usernameNew = "kevin123";
     userNew = userProfile.username!;
   }
 
   late String usernameNew;
   late String userNew;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Username: ${userProfile.username}'),
-            SizedBox(height: 8),
-            Text('Handphone: ${userProfile.handphone ?? "Not provided"}'),
-            SizedBox(height: 8),
-            Text('Email: ${userProfile.email}'),
-            SizedBox(height: 8),
-            //Text('Favorite Books: ${userProfile.favoriteBooks != null ? userProfile.favoriteBooks.join(", ") : "N/A"}'),
-            // SizedBox(height: 16),
-
-            ElevatedButton(
-              onPressed: () {
-                _showMessage(context);
-              },
-              child: Text('Show Message'),
-            ),
-
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the BookStore page without popping
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Bookstore(username: userNew)),
-                );
-              },
-              child: Text('Go to BookStore'),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Navigate to Profile Form Screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => WProfilePage(
-                user: userProfile.username.toString(),
-              ),
-            ),
-          );
-        },
-        icon: const Icon(Icons.edit),
-        label: const Text("Edit Profile"),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
-  }
 
   void _showMessage(BuildContext context) {
     showDialog(
@@ -104,6 +74,73 @@ class ProfileScreen extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  void _logout(BuildContext context) {
+    LogoutHandler.logout(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Profile'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Username: ${userProfile.username}'),
+            SizedBox(height: 8),
+            Text('Handphone: ${userProfile.handphone ?? "Not provided"}'),
+            SizedBox(height: 8),
+            Text('Email: ${userProfile.email}'),
+            SizedBox(height: 8),
+            ElevatedButton(
+              onPressed: () {
+                _showMessage(context);
+              },
+              child: Text('Show Message'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Bookstore(username: userNew),
+                  ),
+                );
+              },
+              child: Text('Go to BookStore'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                _logout(context);
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WProfilePage(
+                user: userProfile.username.toString(),
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.edit),
+        label: const Text("Edit Profile"),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
@@ -152,4 +189,8 @@ class _ProfileAppState extends State<ProfileApp> {
       ),
     );
   }
+}
+
+void main() {
+  runApp(ProfileApp(user: "iniadminke2"));
 }

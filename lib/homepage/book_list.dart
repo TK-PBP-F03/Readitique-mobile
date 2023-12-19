@@ -17,7 +17,6 @@ List<NavigationItem> getNavigationItemList() {
   return <NavigationItem>[
     NavigationItem(Icons.home, "home"),
     NavigationItem(Icons.book, "book"),
-    NavigationItem(Icons.local_library, "library"),
     NavigationItem(Icons.person, "profile"),
   ];
 }

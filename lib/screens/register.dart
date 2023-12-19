@@ -14,7 +14,6 @@ class RegisterApp extends StatelessWidget {
     return MaterialApp(
       title: 'Register',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
       ),
       home: const RegisterPage(),
@@ -100,8 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _buildInputContainer(Widget child) {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width *
-            0.8, // Set width to 50% of the screen width
+        width: MediaQuery.of(context).size.width * 0.8,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -129,21 +127,23 @@ class _RegisterPageState extends State<RegisterPage> {
               fontSize: 24.0,
               fontWeight: FontWeight.bold,
               color: Colors.black,
-            )), // Add text color
+            )),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.blue,
         centerTitle: true,
+        elevation: 0,
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         height: MediaQuery.of(context).size.height * 0.75,
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/images/logo-removebg.png',
-              width: 150, // Adjust the width as needed
-              height: 150, // Adjust the height as needed
+              width: 150,
+              height: 150,
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 20.0),
@@ -152,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: TextStyle(
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(136, 62, 56, 56), // Dimmed color
+                  color: Color.fromARGB(136, 62, 56, 56),
                 ),
               ),
             ),
@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
-                ); // Assuming that the login page is the previous route
+                );
               },
               child: const Text('Already have an account? Log in here'),
             ),
