@@ -335,7 +335,7 @@ class _BookstoreState extends State<Bookstore> {
         if (item.title == "book") {
           // Navigate to AddBukuPage if book icon tapped
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddBukuPage()));
+              context, MaterialPageRoute(builder: (context) => AddBukuPage(username:username)));
         } else if (item.title == "profile") {
           // Navigate to the ProfileApp
           Navigator.push(
