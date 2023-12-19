@@ -5,18 +5,22 @@ import 'package:provider/provider.dart';
 import 'package:readitique_mobile/homepage/book_list.dart';
 
 class NewBookFormPage extends StatefulWidget {
-  const NewBookFormPage({super.key});
+  final String username;
+  const NewBookFormPage({required this.username});
 
   @override
-  State<NewBookFormPage> createState() => _NewBookFormPageState();
+  State<NewBookFormPage> createState() => _NewBookFormPageState(username:username);
 }
 
 class _NewBookFormPageState extends State<NewBookFormPage> {
+  final String username;
+  _NewBookFormPageState({required this.username});
   final _formKey = GlobalKey<FormState>();
   String _title = "";
   String _author = "";
   String _genre = "";
   String _description = "";
+  String _imageLink = "";
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -27,8 +31,6 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
               'Suggest a book!',
             ),
           ),
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
         ),
         body: Form(
           key: _formKey,
@@ -127,6 +129,23 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Image URL",
+                    labelText: "Image URL",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _imageLink = value!;
+                    });
+                  },
+                ),
+              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -144,6 +163,7 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
                               'author': _author,
                               'genre': _genre,
                               'description': _description,
+                              'image_link': _imageLink
                             }));
                         if (response['status'] == 'success') {
                           ScaffoldMessenger.of(context)
@@ -153,7 +173,7 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Bookstore()),
+                                builder: (context) => Bookstore(username: username)),
                           );
                         } else {
                           ScaffoldMessenger.of(context)
