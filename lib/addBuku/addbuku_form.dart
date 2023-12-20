@@ -9,7 +9,8 @@ class NewBookFormPage extends StatefulWidget {
   const NewBookFormPage({required this.username});
 
   @override
-  State<NewBookFormPage> createState() => _NewBookFormPageState(username:username);
+  State<NewBookFormPage> createState() =>
+      _NewBookFormPageState(username: username);
 }
 
 class _NewBookFormPageState extends State<NewBookFormPage> {
@@ -157,7 +158,7 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                            "http://127.0.0.1:8000/add-buku/create-flutter/",
+                            "https://readitique.my.id/add-buku/create-flutter/",
                             jsonEncode(<String, String>{
                               'title': _title,
                               'author': _author,
@@ -173,7 +174,8 @@ class _NewBookFormPageState extends State<NewBookFormPage> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Bookstore(username: username)),
+                                builder: (context) =>
+                                    Bookstore(username: username)),
                           );
                         } else {
                           ScaffoldMessenger.of(context)

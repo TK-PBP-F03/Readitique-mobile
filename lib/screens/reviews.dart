@@ -18,7 +18,7 @@ class _SpringBookState extends State<SpringBook> {
   Future<List<BookReview>> fetchReview() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
-        'http://127.0.0.1:8000/reviews/${widget.bookFields.indexKey}/json/');
+        'https://readitique.my.id/reviews/${widget.bookFields.indexKey}/json/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

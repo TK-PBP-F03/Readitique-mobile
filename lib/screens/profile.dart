@@ -9,7 +9,7 @@ import "package:readitique_mobile/homepage/book_list.dart";
 
 class LogoutHandler {
   static Future<void> logout(BuildContext context) async {
-    var url = Uri.parse('http://127.0.0.1:8000/auth/logout/');
+    var url = Uri.parse('https://readitique.my.id/auth/logout/');
     var response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},
@@ -156,7 +156,8 @@ class ProfileApp extends StatefulWidget {
 
 class _ProfileAppState extends State<ProfileApp> {
   Future<UserProfile> fetchUserProfile() async {
-    var url = Uri.parse('http://127.0.0.1:8000/profile/json/${widget.user}/');
+    var url =
+        Uri.parse('https://readitique.my.id/profile/json/${widget.user}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 class WProfilePage extends StatefulWidget {
   final String user;
 
@@ -80,7 +81,7 @@ class _WProfilePageState extends State<WProfilePage> {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             final response = await request.postJson(
-              "http://127.0.0.1:8000/profile/create-flutter/${widget.user}/",
+              "https://readitique.my.id/profile/create-flutter/${widget.user}/",
               jsonEncode(<String, String>{'email': _email}),
             );
             if (response['status'] == 'success') {
@@ -90,8 +91,6 @@ class _WProfilePageState extends State<WProfilePage> {
               _formKey.currentState!.reset();
               print("berhasil");
               Navigator.pop(context);
-              
-             
             } else {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("An error occurred, please try again."),
@@ -106,4 +105,3 @@ class _WProfilePageState extends State<WProfilePage> {
     );
   }
 }
-

@@ -107,7 +107,7 @@ class _BookstoreState extends State<Bookstore> {
   }
 
   Future<List<Fields>> fetchBooks(String genre) async {
-    String url = 'http://127.0.0.1:8000/api/books/';
+    String url = 'https://readitique.my.id/api/books/';
     if (genre.isNotEmpty) {
       url += '?genre=$genre';
     }
@@ -335,7 +335,9 @@ class _BookstoreState extends State<Bookstore> {
         if (item.title == "book") {
           // Navigate to AddBukuPage if book icon tapped
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddBukuPage(username:username)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddBukuPage(username: username)));
         } else if (item.title == "profile") {
           // Navigate to the ProfileApp
           Navigator.push(

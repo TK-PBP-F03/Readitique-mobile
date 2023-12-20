@@ -4,9 +4,8 @@ import 'package:readitique_mobile/models/userprofile.dart';
 
 class UserProfileService {
   static Future<List<UserProfile>> fetchUserProfiles() async {
-    final response =
-       await http.get(Uri.parse("http://127.0.0.1:8000/api/user_profiles/"));
-
+    final response = await http
+        .get(Uri.parse("https://readitique.my.id/api/user_profiles/"));
 
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);

@@ -115,7 +115,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final response = await request.postJson(
-                  "http://127.0.0.1:8000/reviews/${widget.bookFields.indexKey}/create-flutter/",
+                  "https://readitique.my.id/reviews/${widget.bookFields.indexKey}/create-flutter/",
                   jsonEncode(<String, String>{'review': _review}));
               if (response['status'] == 'success') {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

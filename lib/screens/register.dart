@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     final response = await http.post(
-      Uri.parse("http://127.0.0.1:8000/auth/register/"),
+      Uri.parse("https://readitique.my.id/auth/register/"),
       body: {
         'username': username,
         'password': password,
@@ -145,17 +145,6 @@ class _RegisterPageState extends State<RegisterPage> {
               width: 150,
               height: 150,
             ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 20.0),
-              child: const Text(
-                'Create an Account,its free',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(136, 62, 56, 56),
-                ),
-              ),
-            ),
             _buildInputContainer(
               TextField(
                 controller: _usernameController,
@@ -209,6 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
               },
               child: const Text('Already have an account? Log in here'),
             ),
+            const SizedBox(height: 27.0),
           ],
         ),
       ),
