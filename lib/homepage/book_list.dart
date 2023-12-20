@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:readitique_mobile/screens/constant.dart';
 import 'package:readitique_mobile/screens/book_detail.dart';
 import 'package:readitique_mobile/screens/profile.dart';
-import 'package:readitique_mobile/addbuku/addbuku.dart';
+import 'package:readitique_mobile/addBuku/addbuku.dart';
 
 class NavigationItem {
   IconData iconData;
