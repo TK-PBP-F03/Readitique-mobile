@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:readitique_mobile/addBuku/addbuku_form.dart';
-import 'package:readitique_mobile/addbuku/newbook_details.dart';
+import 'package:readitique_mobile/addBuku/newbook_details.dart';
 import 'dart:convert';
 import 'package:readitique_mobile/models/newbook.dart';
 
