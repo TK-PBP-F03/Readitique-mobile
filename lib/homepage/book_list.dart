@@ -4,18 +4,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:readitique_mobile/screens/constant.dart';
 import 'package:readitique_mobile/screens/book_detail.dart';
+import 'package:readitique_mobile/screens/profile.dart';
+import 'package:readitique_mobile/addbuku/addbuku.dart';
 
 class NavigationItem {
   IconData iconData;
-  NavigationItem(this.iconData);
+  String title; // Add a title property for identification
+  NavigationItem(this.iconData, this.title);
 }
 
 List<NavigationItem> getNavigationItemList() {
   return <NavigationItem>[
-    NavigationItem(Icons.home),
-    NavigationItem(Icons.book),
-    NavigationItem(Icons.local_library),
-    NavigationItem(Icons.person),
+    NavigationItem(Icons.home, "home"),
+    NavigationItem(Icons.book, "book"),
+    NavigationItem(Icons.person, "profile"),
   ];
 }
 
@@ -33,11 +35,16 @@ List<Filter> getFilterList() {
 }
 
 class Bookstore extends StatefulWidget {
+  final String username;
+  Bookstore({required this.username});
   @override
-  _BookstoreState createState() => _BookstoreState();
+  _BookstoreState createState() => _BookstoreState(username: username);
 }
 
 class _BookstoreState extends State<Bookstore> {
+  final String username;
+  _BookstoreState({required this.username});
+
   late List<Filter> filters;
   late Filter selectedFilter;
 
@@ -323,6 +330,21 @@ class _BookstoreState extends State<Bookstore> {
         setState(() {
           selectedItem = item;
         });
+
+        // Check if the selected item is the one corresponding to the profile page
+        if (item.title == "book") {
+          // Navigate to AddBukuPage if book icon tapped
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddBukuPage(username:username)));
+        } else if (item.title == "profile") {
+          // Navigate to the ProfileApp
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileApp(user: username),
+            ),
+          );
+        }
       },
       child: Container(
         width: 50,
